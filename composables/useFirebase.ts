@@ -20,12 +20,18 @@ export const loginUser = async (email, password) => {
 
 export const initUser = async () => {
     const auth = getAuth();
+    const firebaseUser = useFirebaseUser();
+    firebaseUser.value = auth.currentUser;
+
+    const userCookie = useCookie("userCookie")
     onAuthStateChanged(auth, (user) => {
         if (user) {
             console.log(user.uid);
         } else {
-
-        }
+            console.log("Auth changed")
+        };
+        firebaseUser.value = user;
+        // userCookie.value = user;
     });
 };
 

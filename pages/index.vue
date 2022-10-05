@@ -1,6 +1,7 @@
-<script setup lang="ts">
+<script setup>
 import { required, email, helpers, minLength } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
+const firebaseUser = useFirebaseUser();
 const formData = reactive({
     email: "",
     password: ""
@@ -17,10 +18,10 @@ const handleSubmit = async () => {
     const result = await v$.value.$validate();
     if (result) {
         loading.value = true;
-        const credentials = await loginUser(formData.email, formData.password);
-        console.log(credentials)
+        await loginUser(formData.email, formData.password);
         loading.value = false;
-    }
+    };
+
 }
 </script>
 <template>
@@ -50,7 +51,14 @@ const handleSubmit = async () => {
     
                 <div>
                     <button type="submit"
-                        class="w-full bg-green-600 text-white py-2 px-2 rounded-md hover:bg-green-700 transition duration-200 ease-in">Sign In</button>
+                        class="w-full bg-green-600 text-white py-2 px-2 rounded-md hover:bg-green-700 transition duration-200 ease-in">
+                        {{ loading ? "Signing In..." : "Sign In"}}
+                    </button>
+                </div>
+
+                <div class="mt-4" v-if="firebaseUser">
+                    <button type="submit"
+                        class="w-full bg-red-600 text-white py-2 px-2 rounded-md hover:bg-red-700 transition duration-200 ease-in" @click="signOutUser()">Sign Out</button>
                 </div>
             </form>
         </div>
