@@ -1,6 +1,6 @@
 <template>
     <header>
-        <nav class="w-full px-3 flex-between h-14 border-b border-gray-900">
+        <nav class="w-full px-3 flex-between h-14 border-b border-gray-800">
             <div class="flex-center space-x-3">
                 <NuxtLink to="/">
                     <h1 class="text-xl md:text-2xl">Nuxt 3</h1>
