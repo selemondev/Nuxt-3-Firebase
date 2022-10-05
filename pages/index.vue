@@ -16,7 +16,10 @@ const v$ = useVuelidate(rules, formData);
 const handleSubmit = async () => {
     const result = await v$.value.$validate();
     if (result) {
-        console.log(result)
+        loading.value = true;
+        const credentials = await loginUser(formData.email, formData.password);
+        console.log(credentials)
+        loading.value = false;
     }
 }
 </script>
