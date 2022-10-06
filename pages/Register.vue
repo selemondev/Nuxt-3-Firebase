@@ -20,7 +20,9 @@ const v$ = useVuelidate(rules, formData);
 const handleSubmit = async () => {
     const result = await v$.value.$validate();
     if (result) {
-
+        loading.value = true;
+        await registerUser(formData.email, formData.password);
+        loading.value = false;
     }
 }
 </script>

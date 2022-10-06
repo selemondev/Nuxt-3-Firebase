@@ -22,13 +22,13 @@ export const initUser = async () => {
     const auth = getAuth();
     const firebaseUser = useFirebaseUser();
     firebaseUser.value = auth.currentUser;
-
-    const userCookie = useCookie("userCookie")
+    const router = useRouter();
+    const userCookie = useCookie("userCookie");
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log(user.uid);
+            router.push("/dashboard")
         } else {
-            console.log("Auth changed")
+            router.push("/")
         };
         firebaseUser.value = user;
         // userCookie.value = user;
