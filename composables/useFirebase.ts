@@ -1,6 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-
-export const registerUser = async (email, password) => {
+export const registerUser = async (email:string, password:string) => {
     const auth = getAuth();
     const credentials = await createUserWithEmailAndPassword(auth, email, password)
         .catch((error) => {
@@ -9,7 +8,7 @@ export const registerUser = async (email, password) => {
     return credentials;
 }
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (email:string, password:string) => {
     const auth = getAuth();
     const credentials = await signInWithEmailAndPassword(auth, email, password)
         .catch((error) => {
@@ -23,7 +22,7 @@ export const initUser = async () => {
     const firebaseUser = useFirebaseUser();
     firebaseUser.value = auth.currentUser;
     const router = useRouter();
-    const userCookie = useCookie("userCookie");
+    const userCookie:any = useCookie("userCookie");
     onAuthStateChanged(auth, (user) => {
         if (user) {
             router.push("/dashboard")
@@ -31,7 +30,12 @@ export const initUser = async () => {
             router.push("/")
         };
         firebaseUser.value = user;
-        // userCookie.value = user;
+        userCookie.value = user;
+
+        $fetch("/api/auth", {
+            method: "POST",
+            body: { user },
+        });
     });
 };
 

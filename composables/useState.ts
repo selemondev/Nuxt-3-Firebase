@@ -1,2 +1,1 @@
-import { FirebaseUser } from "~~/Types/firebaseUser.interface";
-export const useFirebaseUser = () => useState<FirebaseUser[]>("firebaseUser", () => []);
+export const useFirebaseUser = () => useState<any>("firebaseUser", () => {});
