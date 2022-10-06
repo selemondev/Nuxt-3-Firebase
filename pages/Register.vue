@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import useVuelidate from "@vuelidate/core";
 import { required, helpers, email, minLength, sameAs } from "@vuelidate/validators";
 const loading = ref(false);
