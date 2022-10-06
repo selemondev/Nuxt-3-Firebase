@@ -2,7 +2,10 @@
 const credentials = useFirebaseUser();
 definePageMeta({
     middleware: "auth"
-})
+});
+
+console.log(credentials.value)
+
 </script>
 <template>
     <div>
@@ -11,5 +14,6 @@ definePageMeta({
                 {{ credentials }}
             </pre>
         </client-only>
+        <button @click="signOutUser()">Sign Out</button>
     </div>
 </template>
